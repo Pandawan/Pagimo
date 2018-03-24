@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<%- include  ./partials/head %>
+
+    <body data-gr-c-s-loaded="true">
+        <%- include ./partials/navbar %>
+            <main role="main">
+                <h1>New Post</h1>
+                <form action="/posts/new-post" method="POST">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" title="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Content</label>
+                        <textarea class="form-control" name="content" id="content" placeholder="Content"></textarea>
+                    </div>
+                    <input type="text" name="id" style="display:none;" id="id">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </main>
+            <%- include ./partials/footer %>
+    </body>
+
+</html>
