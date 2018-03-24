@@ -1,3 +1,8 @@
-const firebase = require('firebase');
+const firebase = require('firebase-admin');
 
-const app = firebase.initializeApp({ PRIVATE KEYS HERE });
+const serviceAccount = require('');
+
+const app = firebase.initializeApp({
+	credential: firebase.credential.cert(serviceAccount),
+	databaseURL: 'https://pagimo-hack.firebaseio.com'
+});
