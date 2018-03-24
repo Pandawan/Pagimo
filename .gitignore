@@ -125,5 +125,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+creds.js
+config.js
+
 
 # End of https://www.gitignore.io/api/node,linux,macos,windows
