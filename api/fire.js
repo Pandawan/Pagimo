@@ -36,14 +36,39 @@ module.exports.getUser = id => new Promise((resolve, reject) => {
  * Create a user in the Firebase DB
  * @param {string} uid User UID (from Google Sign In or other)
  * @param {string} name User's Name (from Google Sign In or other)
+ * @param {string} username (optional) Username for /user/username
  */
-module.exports.createUser = (uid, name) => new Promise((resolve, reject) => {
-	const userId = slug(name);
+module.exports.createUser = (uid, name, username) => new Promise((resolve, reject) => {
+	// Either use the username or get a slug from the name
+	const userId = username || slug(name).toLowerCase();
+	// Add the user to /users/
 	usersRef.doc(userId).set({
 		uid,
 		name,
 		posts: [],
 		investments: [],
 		created: Date.now()
-	}).then(resolve).catch(reject);
+	}).then(() => {
+		// Add the user to /auth/
+		authRef.doc(uid).set({
+			user: userId
+		}).then(resolve).catch(reject);
+	}).catch(reject);
+});
+
+/**
+ * Get the user's id/username from the UID
+ * @param {string} uid User UID (Google Sign In or other)
+ */
+module.exports.getUserId = uid => new Promise((resolve, reject) => {
+	authRef.doc(uid).get('user').then((obj) => {
+		if (obj.exists) {
+			resolve(obj.data().user);
+		}
+		else {
+			resolve(null);
+		}
+	}).catch((error) => {
+		reject(error);
+	});
 });
