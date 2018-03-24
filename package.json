@@ -45,9 +45,11 @@
 				"warn"
 			],
 			"indent": [
-				"error", 
+				"error",
 				"tab",
-				{ "SwitchCase": 1 }
+				{
+					"SwitchCase": 1
+				}
 			],
 			"no-tabs": 0
 		}
