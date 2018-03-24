@@ -1,16 +1,27 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('../creds.json');
+const slug = require('slug');
 
-const db = admin.firestore();
-const app = admin.initializeApp({
+admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
 	databaseURL: 'https://pagimo-hack.firebaseio.com'
 });
 
-const docRef = db.collection('posts').doc('test');
-const set = docRef.set({
-	content: 'hello',
-	created: Date.now(),
-	owner: 'ya boi',
-	title: 'Testing testing 123'
-});
+const db = admin.firestore();
+
+module.exports.createPost = (content, owner, title) => {
+	const user = db.collection('users').doc(owner);
+	user.get().then((doc) => {
+		const post = doc.data().posts;
+		db.collection('posts').add({
+			content,
+			owner,
+			title,
+			created: Date.now()
+		}).then((docRef) => {
+			db.collection('users').doc(owner).update({
+				posts: [...post, docRef.id]
+			});
+		});
+	});
+};
