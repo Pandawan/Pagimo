@@ -4,7 +4,7 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-	res.render('investors', {
+	res.render('faq', {
 		title: 'Express'
 	});
 });
