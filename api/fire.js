@@ -39,4 +39,11 @@ module.exports.getUser = id => new Promise((resolve, reject) => {
  */
 module.exports.createUser = (uid, name) => new Promise((resolve, reject) => {
 	const userId = slug(name);
+	usersRef.doc(userId).set({
+		uid,
+		name,
+		posts: [],
+		investments: [],
+		created: Date.now()
+	}).then(resolve).catch(reject);
 });
