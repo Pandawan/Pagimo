@@ -1,9 +1,12 @@
 const express = require('express');
-const Static = require('../controllers/Static');
 
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', Static.home);
+router.get('/', (req, res, next) => {
+	res.render('index', {
+		title: 'Express'
+	});
+});
 
 module.exports = router;
