@@ -85,7 +85,7 @@ $(document).ready(() => {
 		const amt = $('#buyInNum').val();
 		const price = $('#buyInPrice').val();
 		const user = firebase.auth().currentUser;
-		$.post('/api/sell/', {
+		$.post('/api/buy/', {
 			investorId: user.uid,
 			channelId: channel,
 			askPrice: price,
