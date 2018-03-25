@@ -75,7 +75,11 @@ module.exports.getUser = id => new Promise((resolve, reject) => {
  * @param {string} name The user's name to search for
  */
 module.exports.getUserList = name => new Promise((resolve, reject) => {
-	usersRef.where('name', '==', name).then((doc) => {
+	console.log(`'${name}'`);
+	usersRef.doc('miguel').get('name').then((data) => {
+		console.log(`'${JSON.stringify(data.data())}'`);
+	});
+	usersRef.where('name', '==', name).get().then((doc) => {
 		if (doc.exists) {
 			console.log(doc.data());
 			resolve(doc.data());

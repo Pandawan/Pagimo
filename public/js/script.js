@@ -77,9 +77,7 @@ $(document).ready(() => {
 			console.log(`Signed in with user ${JSON.stringify(user.displayName)}`);
 
 			$.post('/api/create_user/', { uid: user.uid, name: user.displayName }, (data) => {
-				$('#modal').removeClass('hidden');
-				$('#modal-title').text('HEY');
-				$('#modal-content').text(data);
+				console.log(`Posted update ${JSON.stringify(data)}`);
 			});
 		}
 		else {
