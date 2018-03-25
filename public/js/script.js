@@ -51,6 +51,7 @@ $(document).ready(() => {
 
 	$('#depositForm').submit(() => {
 		const amt = $('#depositIn').val();
+		const investorId = firebase.auth().name; // PSEUDOCODE
 		// send amt to firebase to be added to investor.tokens
 	});
 
@@ -66,8 +67,9 @@ $(document).ready(() => {
 	});
 
 	$('#sellForm').submit(()=> {
-		const channel = $("#sellInChan").val();		
+		const channel = $("#sellInChan").val();
 		const amt = $("#sellInNum").val();
+		// send amt to firebase to be removed from investor.portfolio
 
 	$('#sign-in-btn').click(() => {
 		signInButton();

@@ -47,6 +47,24 @@ const postsRef = db.collection('posts');
 const sellsRef = db.collection('sells');
 const buysRef = db.collection('buys');
 
+module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) => {
+	const user = usersRef.doc(investorId);
+	user.get().then((doc) => {
+		if (doc.exists()) {
+			const currTokens = doc.data().tokens;
+			const newTokens = tokens + currTokens;
+			console.log(doc);
+			doc.set({
+				tokens: newTokens,
+			});
+		}
+		else {
+			resolve(null);
+		}
+	}).catch((error) => {
+		reject(error);
+	});
+}
 /**
  * Submit a new sell request
  * @param {string} investorId UserID Of the investor

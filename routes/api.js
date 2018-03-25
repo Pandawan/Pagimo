@@ -13,7 +13,16 @@ router.post('/create_user/', (req, res) => {
 	});
 });
 
-// Create users
+router.post('/deposit/', (req, res) => {
+	const { tokens
+	} = req.body;
+	fire.deposit(tokens).then(() => {
+		res.send('Success!');
+	}).catch((err) => {
+		res.send(`Something went wrong... ${err}`);
+	});
+});
+
 router.post('/sell/', (req, res) => {
 	const {
 		investorId,
