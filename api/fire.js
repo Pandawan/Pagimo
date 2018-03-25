@@ -55,7 +55,7 @@ module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) =
 			const newTokens = tokens + currTokens;
 			console.log(doc);
 			doc.set({
-				tokens: newTokens,
+				tokens: newTokens
 			});
 		}
 		else {
@@ -64,7 +64,7 @@ module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) =
 	}).catch((error) => {
 		reject(error);
 	});
-}
+});
 /**
  * Submit a new sell request
  * @param {string} investorId UserID Of the investor

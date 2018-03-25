@@ -60,16 +60,17 @@ $(document).ready(() => {
 		// send amt to firebase to be subtracted from investor.tokens
 	});
 
-	$('#buyForm').submit(()=> {
-		const channel = $("#buyInChan").val();
-		const amt = $("#buyInNum").val();
+	$('#buyForm').submit(() => {
+		const channel = $('#buyInChan').val();
+		const amt = $('#buyInNum').val();
 		// send amt to firebase to be added to investor.portfolio
 	});
 
-	$('#sellForm').submit(()=> {
-		const channel = $("#sellInChan").val();
-		const amt = $("#sellInNum").val();
+	$('#sellForm').submit(() => {
+		const channel = $('#sellInChan').val();
+		const amt = $('#sellInNum').val();
 		// send amt to firebase to be removed from investor.portfolio
+	});
 
 	$('#sign-in-btn').click(() => {
 		signInButton();
