@@ -31,13 +31,18 @@ module.exports.getPosts = (owner, amount) => new Promise((resolve, reject) => {
 	const user = db.collection('users').doc(owner);
 	user.get().then((doc) => {
 		const { posts } = doc.data();
-		db.collection('posts').doc(posts[0]).get().then((postData) => {
+		if (posts) {
+			resolve([]);
+		}
+		else {
+			db.collection('posts').doc(posts[0]).get().then((postData) => {
 			// eslint-disable-next-line
 			let arr = [];
-			arr.push(postData.data());
-			resolve(arr);
-		})
-			.catch(reject);
+				arr.push(postData.data());
+				resolve(arr);
+			})
+				.catch(reject);
+		}
 	});
 });
 
