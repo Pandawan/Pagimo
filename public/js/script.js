@@ -49,13 +49,13 @@ $(document).ready(() => {
 		});
 	}
 
-	$('#depositForm').submit(()=> {
-		const amt = $("#depositIn").val();
+	$('#depositForm').submit(() => {
+		const amt = $('#depositIn').val();
 		// send amt to firebase to be added to investor.tokens
 	});
 
-	$('#withdrawForm').submit(()=> {
-		const amt = $("#withdrawIn").val();
+	$('#withdrawForm').submit(() => {
+		const amt = $('#withdrawIn').val();
 		// send amt to firebase to be subtracted from investor.tokens
 	});
 
@@ -68,8 +68,6 @@ $(document).ready(() => {
 	$('#sellForm').submit(()=> {
 		const channel = $("#sellInChan").val();		
 		const amt = $("#sellInNum").val();
-		// send amt to firebase to be added to investor.tokens
-	});
 
 	$('#sign-in-btn').click(() => {
 		signInButton();
