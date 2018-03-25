@@ -56,7 +56,10 @@ module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) =
 			console.log(doc);
 			doc.set({
 				tokens: newTokens
-			});
+			}).then(resolve)
+				.catch((err) => {
+					reject(err);
+				});
 		}
 		else {
 			resolve(null);

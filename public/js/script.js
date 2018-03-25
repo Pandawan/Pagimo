@@ -51,8 +51,11 @@ $(document).ready(() => {
 
 	$('#depositForm').submit(() => {
 		const amt = $('#depositIn').val();
-		const investorId = firebase.auth().name; // PSEUDOCODE
-		// send amt to firebase to be added to investor.tokens
+		const user = firebase.auth().currentUser;
+		$.post('/api/create_user/', {
+			uid: user.uid,
+			tokens: amt
+		});
 	});
 
 	$('#withdrawForm').submit(() => {

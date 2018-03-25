@@ -14,10 +14,13 @@ router.post('/create_user/', (req, res) => {
 });
 
 router.post('/deposit/', (req, res) => {
-	const { tokens
-	} = req.body;
-	fire.deposit(tokens).then(() => {
-		res.send('Success!');
+	const { tokens, uid } = req.body;
+	fire.getUserId(uid).then((user) => {
+		fire.deposit(user, tokens).then(() => {
+			res.send('Success!');
+		}).catch((err) => {
+			res.send(`Something went wrong... ${err}`);
+		});
 	}).catch((err) => {
 		res.send(`Something went wrong... ${err}`);
 	});
