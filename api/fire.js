@@ -144,26 +144,21 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 		if (doc.exists) {
 			for (let j = 0; j < doc.data().requests.length; j++) {
 				const i = doc.data().requests[j];
-				console.log('Succesful purchase');
 				if ((askPrice >= i.minPrice) && (shareCount <= i.shareCount)) { // if askPrice > minPrice
-					console.log('Succesful purchase');
+					console.log("You're in " + j + " " + i.minPrice + " " + i.shareCount);
 					// eslint-disable-next-line
 					usersRef.doc(i.seller).get().then((doc) => {
 						if (doc.exists) {
+							console.log("hey")
 							const { minPrice, tokens } = doc.data();
 							const shareCounty = doc.data().shareCount;
-							usersRef.doc(i.seller).set({ minPrice: minPrice - i.minPrice, tokens: tokens + askPrice, shareCount: i.shareCount - shareCounty }, { merge: true }).then((data) => {
-								usersRef.doc(investorId).set({ minPrice: minPrice - i.minPrice, tokens: tokens + askPrice, shareCount: i.shareCount - shareCounty }, { merge: true }).then((data2) => {
+							usersRef.doc(i.seller).set({tokens: intParse(tokens, 10) + intParse(askPrice, 10)*intParse(shareCount, 10) }, { merge: true }).then((data) => {
+							usersRef.doc(investorId).set({tokens: intParse(tokens,10) - intParse(askPrice, 10)*intParse(shareCount,10), investments: [...investments, {channelId, askPrice, shareCount}]}, { merge: true }).then((data2) => {
 									resolve('Done');
 								}).catch(reject);
 							}).catch(reject);
 						}
-					});
-					investorId.portfolio[channel] += i.minPrice;
-					// transfer num amount of shares of channel from seller to buyer
-					investorId.tokens -= askPrice;
-					i.seller.tokens += askPrice;
-					// transfer askPrice amount of tokens from buyer to seller
+					
 					const shareCt = i.shareCount - shareCount;
 					i.set({
 						minPrice,
@@ -184,7 +179,7 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 						uid,
 						investments: [...investments, newInvestment]
 					});
-					alert('Succesful purchase');
+					});
 				}
 			}
 			const newBuyRequest = {
