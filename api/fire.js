@@ -140,6 +140,7 @@ module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new P
 // eslint-disable-next-line max-len
 module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Promise((resolve, reject) => {
 	const channel = buysRef.doc(channelId);
+	console.log(investorId)
 	channel.get().then((doc) => {
 		if (doc.exists) {
 			for (let j = 0; j < doc.data().requests.length; j++) {
@@ -149,48 +150,59 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 					// eslint-disable-next-line
 					usersRef.doc(i.seller).get().then((doc) => {
 						if (doc.exists) {
-							console.log("hey")
-							const { minPrice, tokens } = doc.data();
-							const shareCounty = doc.data().shareCount;
-							usersRef.doc(i.seller).set({tokens: intParse(tokens, 10) + intParse(askPrice, 10)*intParse(shareCount, 10) }, { merge: true }).then((data) => {
-							usersRef.doc(investorId).set({tokens: intParse(tokens,10) - intParse(askPrice, 10)*intParse(shareCount,10), investments: [...investments, {channelId, askPrice, shareCount}]}, { merge: true }).then((data2) => {
-									resolve('Done');
-								}).catch(reject);
-							}).catch(reject);
+							const tokens = doc.data().tokens;
+							console.log("tokens " + tokens)
+							console.log("sharecount " + shareCount)
+							const tokDiff = parseInt(askPrice,10)*parseInt(shareCount,10);
+							console.log("diff" + tokDiff)
+							usersRef.doc(investorId).get().then((doc) => {
+								const tokMine = doc.data().tokens;
+								const newTok = parseInt(tokMine,10) - parseInt(tokDiff,10);
+								const newnTok = parseInt(tokens,10) + parseInt(tokDiff,10);
+								console.log("newn" + newnTok)
+								console.log("new" + newTok)
+								console.log("name" + i.seller)
+								usersRef.doc(investorId).set({tokens: parseInt(newTok, 10)}, { merge: true }).then((data) => {}).catch(reject);
+								usersRef.doc(i.seller).set({tokens: parseInt(newnTok,10)}, { merge: true }).then((data2) => {resolve('Done');}).catch(reject);
+							}); // , investments: [...investments, {channelId, askPrice, shareCount}]
+							// usersRef.doc(investorId).set({tokens: parseInt(newTok, 10)}, { merge: true }).then((data) => {}).catch(reject);
+							// usersRef.doc(investorId).set({tokens: intParse(tokens,10) - intParse(askPrice, 10)*intParse(shareCount,10), investments: [...investments, {channelId, askPrice, shareCount}]}, { merge: true }).then((data2) => {
+							// 		resolve('Done');
+							// 	}).catch(reject);
 						}
 					
-					const shareCt = i.shareCount - shareCount;
-					i.set({
-						minPrice,
-						seller,
-						shareCount: shareCt
-					});
-					const user = usersRef.doc(investorId);
-					const newInvestment = {
-						channel,
-						shareCount,
-						price: askPrice
-					};
-					user.set({
-						created,
-						name: investorId,
-						posts,
-						tokens,
-						uid,
-						investments: [...investments, newInvestment]
-					});
+					// const shareCt = i.shareCount - shareCount;
+					// i.set({
+					// 	minPrice,
+					// 	seller,
+					// 	shareCount: shareCt
+					// });
+					// const user = usersRef.doc(investorId);
+					// const newInvestment = {
+					// 	channel,
+					// 	shareCount,
+					// 	price: askPrice
+					// };
+					// user.set({
+					// 	created,
+					// 	name: investorId,
+					// 	posts,
+					// 	tokens,
+					// 	uid,
+					// 	investments: [...investments, newInvestment]
+					// });
 					});
 				}
 			}
-			const newBuyRequest = {
-				buyer: investorId,
-				askPrice,
-				shareCount
-			};
-			const { requests } = doc.data();
-			channel.set({
-				requests: [...requests, newBuyRequest]
-			});
+			// const newBuyRequest = {
+			// 	buyer: investorId,
+			// 	askPrice,
+			// 	shareCount
+			// };
+			// const { requests } = doc.data();
+			// channel.set({
+			// 	requests: [...requests, newBuyRequest]
+			// });
 		}
 		else {
 			const newBuyRequest = {
