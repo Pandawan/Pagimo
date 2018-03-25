@@ -57,6 +57,10 @@ $(document).ready(() => {
 		signOut();
 	});
 
+	$('#search-btn').click(() => {
+		window.location.href = `/user/${$('#search-input').val()}`;
+	});
+
 	$('#profile-btn').click(() => {
 		const user = firebase.auth().currentUser;
 		if (user) {
