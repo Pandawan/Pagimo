@@ -13,10 +13,10 @@ router.post('/create_user/', (req, res) => {
 	});
 });
 
-router.post('/withdraw/', (req, res) => {
+router.post('/deposit/', (req, res) => {
 	const { tokens, uid } = req.body;
 	fire.getUserId(uid).then((user) => {
-		fire.withdraw(user, tokens).then(() => {
+		fire.deposit(user, tokens).then(() => {
 			res.send('Success!');
 		}).catch((err) => {
 			res.send(`Something went wrong... ${err}`);
@@ -26,10 +26,10 @@ router.post('/withdraw/', (req, res) => {
 	});
 });
 
-router.post('/deposit/', (req, res) => {
+router.post('/withdraw/', (req, res) => {
 	const { tokens, uid } = req.body;
 	fire.getUserId(uid).then((user) => {
-		fire.deposit(user, tokens).then(() => {
+		fire.withdraw(user, tokens).then(() => {
 			res.send('Success!');
 		}).catch((err) => {
 			res.send(`Something went wrong... ${err}`);
@@ -47,6 +47,20 @@ router.post('/sell/', (req, res) => {
 		shareCount
 	} = req.body;
 	fire.postSell(investorId, channelId, minPrice, shareCount).then(() => {
+		res.send('Success!');
+	}).catch((err) => {
+		res.send(`Something went wrong... ${err}`);
+	});
+});
+
+router.post('/buy/', (req, res) => {
+	const {
+		investorId,
+		channelId,
+		askPrice,
+		shareCount
+	} = req.body;
+	fire.postBuy(investorId, channelId, askPrice, shareCount).then(() => {
 		res.send('Success!');
 	}).catch((err) => {
 		res.send(`Something went wrong... ${err}`);
