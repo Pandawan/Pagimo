@@ -60,12 +60,14 @@ $(document).ready(() => {
 	});
 
 	$('#buyForm').submit(()=> {
-		const amt = $("#buyIn").val();
+		const channel = $("#buyInChan").val();
+		const amt = $("#buyInNum").val();
 		// send amt to firebase to be added to investor.portfolio
 	});
 
 	$('#sellForm').submit(()=> {
-		const amt = $("#sellIn").val();
+		const channel = $("#sellInChan").val();		
+		const amt = $("#sellInNum").val();
 		// send amt to firebase to be added to investor.tokens
 	});
 
