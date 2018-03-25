@@ -104,7 +104,6 @@ module.exports.withdraw = (investorId, tokens) => new Promise((resolve, reject) 
 module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new Promise((resolve, reject) => {
 	const channel = sellsRef.doc(channelId);
 	channel.get().then((doc) => {
-
 		if (doc.exists) {
 			const newSellRequest = {
 				seller: investorId,
@@ -145,37 +144,20 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 		if (doc.exists) {
 			for (let j = 0; j < doc.data().requests.length; j++) {
 				const i = doc.data().requests[j];
-				console.log("Succesful purchase");
+				console.log('Succesful purchase');
 				if ((askPrice >= i.minPrice) && (shareCount <= i.shareCount)) { // if askPrice > minPrice
-					console.log("Succesful purchase");
+					console.log('Succesful purchase');
+					// eslint-disable-next-line
 					usersRef.doc(i.seller).get().then((doc) => {
-						portfolio[channel] -= i.minPrice;
-						investorId.portfolio[channel] += i.minPrice;
-						// transfer num amount of shares of channel from seller to buyer
-						investorId.tokens -= askPrice;
-						i.seller.tokens += askPrice;
-						// transfer askPrice amount of tokens from buyer to seller
-						const shareCt = i.shareCount - shareCount;
-						i.set({
-							minPrice,
-							seller,
-							shareCount: shareCt
-						});
-						const user = usersRef.doc(investorId);
-						const newInvestment = {
-							channel,
-							shareCount,
-							price: askPrice,
-						};
-						user.set({
-							created,
-							name: investorId,
-							posts,
-							tokens,
-							uid,
-							investments: [...investments, newInvestment]
-						});
-						alert("Succesful purchase");				
+						if (doc.exists) {
+							const { minPrice, tokens } = doc.data();
+							const shareCounty = doc.data().shareCount;
+							usersRef.doc(i.seller).set({ minPrice: minPrice - i.minPrice, tokens: tokens + askPrice, shareCount: i.shareCount - shareCounty }, { merge: true }).then((data) => {
+								usersRef.doc(investorId).set({ minPrice: minPrice - i.minPrice, tokens: tokens + askPrice, shareCount: i.shareCount - shareCounty }, { merge: true }).then((data2) => {
+									resolve('Done');
+								}).catch(reject);
+							}).catch(reject);
+						}
 					});
 					investorId.portfolio[channel] += i.minPrice;
 					// transfer num amount of shares of channel from seller to buyer
@@ -192,7 +174,7 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 					const newInvestment = {
 						channel,
 						shareCount,
-						price: askPrice,
+						price: askPrice
 					};
 					user.set({
 						created,
@@ -202,7 +184,7 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 						uid,
 						investments: [...investments, newInvestment]
 					});
-					alert("Succesful purchase");
+					alert('Succesful purchase');
 				}
 			}
 			const newBuyRequest = {
