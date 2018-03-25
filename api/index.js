@@ -6,4 +6,4 @@ fire.getUserList('uuid').then((data) => {
 	console.log(err);
 });
 
-postSell(''asdasdas).then((data) => { console.log(data);}).catch((err) => { console.log(err)});
+postSell(params).then((data) => { console.log(data);}).catch((err) => { console.log(err)});
