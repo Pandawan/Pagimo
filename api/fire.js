@@ -40,15 +40,19 @@ const buysRef = db.collection('buys');
  */
 // eslint-disable-next-line max-len
 module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new Promise((resolve, reject) => {
-	const channel = sellsRef.doc(channelId);
-	channel.get('requests').then((data) => {
-		const newSellRequest = { seller: investorId, minPrice, shareCount };
-		channel.update({
-			requests: [...data.requests, newSellRequest]
-		});
-		resolve('done');
-	}).catch((err) => {
-		reject(err);
+	const user = sellsRef.doc(channelId);
+	user.get().then((doc) => {
+		if (doc.exists) {
+			const newSellRequest = { seller: investorId, minPrice, shareCount };
+			const { requests } = doc.data();
+			console.log(doc);
+			doc.set({ requests: [...requests, newSellRequest] });
+		}
+		else {
+			resolve(null);
+		}
+	}).catch((error) => {
+		reject(error);
 	});
 });
 
@@ -79,19 +83,24 @@ module.exports.getUser = id => new Promise((resolve, reject) => {
 module.exports.createUser = (uid, name, username) => new Promise((resolve, reject) => {
 	// Either use the username or get a slug from the name
 	const userId = username || slug(name).toLowerCase();
-	// Add the user to /users/
-	usersRef.doc(userId).set({
-		uid,
-		name,
-		posts: [],
-		investments: [],
-		created: Date.now()
-	}).then(() => {
-		// Add the user to /auth/
-		authRef.doc(uid).set({
-			user: userId
-		}).then(resolve).catch(reject);
-	}).catch(reject);
+	usersRef.doc(userId).get().then((doc) => {
+		if (!doc.exists) {
+			// Add the user to /users/
+			usersRef.doc(userId).set({
+				uid,
+				name,
+				posts: [],
+				investments: [],
+				created: Date.now(),
+				token: 10
+			}).then(() => {
+				// Add the user to /auth/
+				authRef.doc(uid).set({
+					user: userId
+				}).then(resolve).catch(reject);
+			}).catch(reject);
+		}
+	}).catch(err => reject);
 });
 
 /**

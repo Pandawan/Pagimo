@@ -13,3 +13,7 @@ main {
 .search-bar {
   margin-right: 1em;
 }
+
+#sign-in-user-name {
+	color: white;
+}
