@@ -33,7 +33,7 @@ class Channel(Investor): # inherits from Investor
 		Market.postBuy(super, this, askPrice, num)
 
 class Market(): # this is the server
-	sell = {} # {channel:[[seller, askPrice, num],[seller2, askPrice2, num2]]}
+	sell = {} # {channel:[[seller, minPrice, num],[seller2, minPrice2, num2]]}
 	buy = {} # {channel:[[buyer, askPrice, num],[buyer2, askPrice2, num2]]}
 
 	def postSell(Investor seller, Channel channel, int minPrice, int num):

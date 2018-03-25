@@ -12,6 +12,7 @@ const userid = require('./routes/userid');
 const about = require('./routes/about');
 const creators = require('./routes/creators');
 const investors = require('./routes/investors');
+const newPost = require('./routes/post');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use('/', index);
 app.use('/api', api);
 app.use('/user', user);
 app.use('/userid', userid);
+app.use('/posts', newPost);
 app.use('/investors', investors);
 app.use('/creators', creators);
 app.use('/about', about);

@@ -75,6 +75,15 @@ $(document).ready(() => {
 			$('#sign-in-user').text(user.name);
 
 			console.log(`Signed in with user ${JSON.stringify(user.displayName)}`);
+			if (window.location.pathname === '/posts/new-post') {
+				document.getElementById('id').value = user.uid;
+			} else {
+				$.post('/api/create_user/', { uid: user.uid, name: user.displayName }, (data) => {
+					$('#modal').removeClass('hidden');
+					$('#modal-title').text('HEY');
+					$('#modal-content').text(data);
+				});
+			}
 
 			$.post('/api/create_user/', { uid: user.uid, name: user.displayName }, (data) => {
 				console.log(`Posted update ${JSON.stringify(data)}`);
