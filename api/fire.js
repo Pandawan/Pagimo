@@ -9,7 +9,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-module.exports.createPost = (content, owner, title) => {
+module.exports.createPost = (content, owner, title) => new Promise((resolve, reject) => {
 	const user = db.collection('users').doc(owner);
 	user.get().then((doc) => {
 		const post = doc.data().posts;
@@ -21,10 +21,26 @@ module.exports.createPost = (content, owner, title) => {
 		}).then((docRef) => {
 			db.collection('users').doc(owner).update({
 				posts: [...post, docRef.id]
-			});
-		});
+			}).then(resolve)
+				.catch(reject);
+		}).catch(reject);
 	});
-};
+});
+
+module.exports.getPosts = (owner, amount) => new Promise((resolve, reject) => {
+	const user = db.collection('users').doc(owner);
+	user.get().then((doc) => {
+		const { posts } = doc.data();
+		db.collection('posts').doc(posts[0]).get().then((postData) => {
+			// eslint-disable-next-line
+			let arr = [];
+			arr.push(postData.data());
+			resolve(arr);
+		})
+			.catch(reject);
+	});
+});
+
 const authRef = db.collection('auth');
 const usersRef = db.collection('users');
 const postsRef = db.collection('posts');
@@ -43,10 +59,18 @@ module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new P
 	const user = sellsRef.doc(channelId);
 	user.get().then((doc) => {
 		if (doc.exists) {
-			const newSellRequest = { seller: investorId, minPrice, shareCount };
-			const { requests } = doc.data();
+			const newSellRequest = {
+				seller: investorId,
+				minPrice,
+				shareCount
+			};
+			const {
+				requests
+			} = doc.data();
 			console.log(doc);
-			doc.set({ requests: [...requests, newSellRequest] });
+			doc.set({
+				requests: [...requests, newSellRequest]
+			});
 		}
 		else {
 			resolve(null);

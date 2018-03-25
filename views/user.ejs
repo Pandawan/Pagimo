@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
 <%- include  ./partials/head %>
-<body data-gr-c-s-loaded="true">
-    <%- include ./partials/navbar %>
-    <main role="main">
-		<h1>User Name: <%= user.name %></h1>
-		<p>UID: <%= user.uid %></p>
-		<p>Account Creation: <%= (new Date(user.created)).toString() %></p>
-		<button type="button" class="btn btn-primary">Invest</button>
-    </main>
-	<%- include ./partials/footer %>
-</body>
+
+	<body data-gr-c-s-loaded="true">
+		<%- include ./partials/navbar %>
+			<main role="main">
+				<h1>User Name:
+					<%= user.name %>
+				</h1>
+				<p>UID:
+					<%= user.uid %>
+				</p>
+				<p>Account Creation:
+					<%= (new Date(user.created)).toString() %>
+				</p>
+				<button type="button" class="btn btn-primary">Invest</button>
+				<hr>
+				<h2>Posts</h2>
+				<% posts.forEach(function(post) { %>
+					<div class="card">
+						<div class="card-body">
+							<h3 class="card-title"><%= post.title %></h3>
+							<p class="card-text"><%= post.content %></p>
+						</div>
+					</div>
+				<% }); %>
+			</main>
+			<%- include ./partials/footer %>
+	</body>
+
 </html>
