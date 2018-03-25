@@ -7,9 +7,12 @@ const router = express.Router();
 /* GET users listing. */
 router.get('/:id', (req, res, next) => {
 	fire.getUser(req.params.id).then((user) => {
-		res.render('user', {
-			title: config.title,
-			user
+		fire.getPosts(req.params.id).then((posts) => {
+			res.render('user', {
+				title: config.title,
+				user,
+				posts
+			});
 		});
 	}).catch((err) => {
 		next(err);

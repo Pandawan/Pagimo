@@ -70,6 +70,13 @@ $(document).ready(() => {
 
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {
+			if (window.location.pathname === '/posts/new-post') {
+				if (!$('#not-signed-in').hasClass('hidden')) {
+					$('#not-signed-in').addClass('hidden');
+				}
+				$('#new-post-form').removeClass('hidden');
+			}
+
 			if (!$('#sign-in-btn').hasClass('hidden')) {
 				$('#sign-in-btn').addClass('hidden');
 			}
@@ -83,19 +90,24 @@ $(document).ready(() => {
 				document.getElementById('id').value = user.uid;
 			}
 			else {
-				$.post('/api/create_user/', { uid: user.uid, name: user.displayName }, (data) => {
+				$.post('/api/create_user/', {
+					uid: user.uid,
+					name: user.displayName
+				}, (data) => {
 					$('#modal').removeClass('hidden');
 					$('#modal-title').text('HEY');
 					$('#modal-content').text(data);
 				});
 			}
-
-			$.post('/api/create_user/', { uid: user.uid, name: user.displayName }, (data) => {
-				console.log(`Posted update ${JSON.stringify(data)}`);
-			});
 		}
 		else {
 			console.log('Signed out');
+			if (window.location.pathname === '/posts/new-post') {
+				if (!$('#new-post-form').hasClass('hidden')) {
+					$('#new-post-form').addClass('hidden');
+				}
+				$('#not-signed-in').removeClass('hidden');
+			}
 			// Hide the user signed in
 			if (!$('#sign-in-user').hasClass('hidden')) {
 				$('#sign-in-user').addClass('hidden');
