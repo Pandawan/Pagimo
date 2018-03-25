@@ -6,10 +6,13 @@ const router = express.Router();
 
 /* GET users listing. */
 router.get('/:id', (req, res, next) => {
-	const user = fire.getUser(req.params.id);
-	res.render('user', {
-		title: config.title,
-		user
+	fire.getUser(req.params.id).then((user) => {
+		res.render('user', {
+			title: config.title,
+			user
+		});
+	}).catch((err) => {
+		next(err);
 	});
 });
 

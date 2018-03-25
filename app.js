@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
 const user = require('./routes/user');
-const faq = require('./routes/faq');
+const about = require('./routes/about');
 const creators = require('./routes/creators');
 const investors = require('./routes/investors');
 
@@ -31,7 +31,7 @@ app.use('/', index);
 app.use('/user', user);
 app.use('/investors', investors);
 app.use('/creators', creators);
-app.use('/faq', faq);
+app.use('/about', about);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

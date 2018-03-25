@@ -6,7 +6,8 @@
     <main role="main">
 		<h1>User Name: <%= user.name %></h1>
 		<p>UID: <%= user.uid %></p>
-		<p>Account Creation: <%= (new Date(user.date)).toString() %></p>
+		<p>Account Creation: <%= (new Date(user.created)).toString() %></p>
+		<button type="button" class="btn btn-primary">Invest</button>
     </main>
     <footer class="container">
 	<%- include ./partials/footer %>

@@ -1,11 +1,12 @@
 const express = require('express');
+const config = require('../config');
 
 const router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-	res.render('faq', {
-		title: 'Express'
+	res.render('about', {
+		title: config.title
 	});
 });
 
