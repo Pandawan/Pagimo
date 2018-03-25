@@ -60,7 +60,11 @@ $(document).ready(() => {
 
 	$('#withdrawForm').submit(() => {
 		const amt = $('#withdrawIn').val();
-		// send amt to firebase to be subtracted from investor.tokens
+		const user = firebase.auth().currentUser;
+		$.post('/api/withdraw/', {
+			uid: user.uid,
+			tokens: amt
+		});
 	});
 
 	$('#buyForm').submit(() => {

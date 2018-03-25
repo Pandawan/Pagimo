@@ -13,6 +13,19 @@ router.post('/create_user/', (req, res) => {
 	});
 });
 
+router.post('/withdraw/', (req, res) => {
+	const { tokens, uid } = req.body;
+	fire.getUserId(uid).then((user) => {
+		fire.withdraw(user, tokens).then(() => {
+			res.send('Success!');
+		}).catch((err) => {
+			res.send(`Something went wrong... ${err}`);
+		});
+	}).catch((err) => {
+		res.send(`Something went wrong... ${err}`);
+	});
+});
+
 router.post('/deposit/', (req, res) => {
 	const { tokens, uid } = req.body;
 	fire.getUserId(uid).then((user) => {

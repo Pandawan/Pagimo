@@ -67,6 +67,27 @@ module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) =
 		reject(error);
 	});
 });
+
+module.exports.withdraw = (investorId, tokens) => new Promise((resolve, reject) => {
+	const user = usersRef.doc(investorId);
+	user.get().then((doc) => {
+		if (doc.exists) {
+			const currTokens = doc.data().tokens;
+			const newTokens = parseInt(currTokens, 10) - parseInt(tokens, 10);
+			user.set({
+				tokens: parseInt(newTokens, 10)
+			}, { merge: true }).then(resolve)
+				.catch((err) => {
+					reject(err);
+				});
+		}
+		else {
+			resolve(null);
+		}
+	}).catch((error) => {
+		reject(error);
+	});
+});
 /**
  * Submit a new sell request
  * @param {string} investorId UserID Of the investor
