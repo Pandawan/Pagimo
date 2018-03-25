@@ -81,6 +81,10 @@ $(document).ready(() => {
 		window.location.href = `/user/${$('#search-input').val()}`;
 	});
 
+	$('#new-post-button-right-now').click(() => {
+		window.location.href = '/posts/new-post';
+	});
+
 	$('#profile-btn').click(() => {
 		const user = firebase.auth().currentUser;
 		if (user) {
