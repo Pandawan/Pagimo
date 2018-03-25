@@ -1,3 +1,4 @@
 {
-	"title": "Pagimo"
+	"title": "Pagimo",
+	"port": 3000
 }

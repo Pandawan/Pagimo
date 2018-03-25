@@ -4,6 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const config = require('./config.json');
 
 const index = require('./routes/index');
 const api = require('./routes/api');
@@ -15,6 +16,8 @@ const investors = require('./routes/investors');
 const newPost = require('./routes/post');
 
 const app = express();
+
+app.set('port', config.port || 3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
