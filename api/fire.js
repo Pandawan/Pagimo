@@ -52,9 +52,9 @@ module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) =
 	user.get().then((doc) => {
 		if (doc.exists) {
 			const currTokens = doc.data().tokens;
-			const newTokens = tokens + currTokens;
+			const newTokens = parseInt(tokens, 10) + parseInt(currTokens, 10);
 			user.set({
-				tokens: newTokens
+				tokens: parseInt(newTokens, 10)
 			}, { merge: true }).then(resolve)
 				.catch((err) => {
 					reject(err);
