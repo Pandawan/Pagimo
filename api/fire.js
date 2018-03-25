@@ -147,9 +147,7 @@ module.exports.postBuy = (investorId, channelId, minPrice, shareCount) => new Pr
 				minPrice,
 				shareCount
 			};
-			const {
-				requests
-			} = doc.data();
+			const { requests } = doc.data();
 			user.set({
 				requests: [...requests, newBuyRequest]
 			});
@@ -162,9 +160,7 @@ module.exports.postBuy = (investorId, channelId, minPrice, shareCount) => new Pr
 			};
 			const requests = [];
 			requests.push(newBuyRequest);
-			user.set({
-				requests
-			});
+			user.set({ requests });
 		}
 	}).catch((error) => {
 		reject(error);
