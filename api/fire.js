@@ -110,16 +110,61 @@ module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new P
 				minPrice,
 				shareCount
 			};
-			const {
-				requests
-			} = doc.data();
-			console.log(doc);
-			doc.set({
+			const { requests } = doc.data();
+			user.set({
 				requests: [...requests, newSellRequest]
 			});
 		}
 		else {
-			resolve(null);
+			const newSellRequest = {
+				seller: investorId,
+				minPrice,
+				shareCount
+			};
+			const requests = [];
+			requests.push(newSellRequest);
+			user.set({ requests });
+		}
+	}).catch((error) => {
+		reject(error);
+	});
+});
+
+/**
+ * Submit a new buy request
+ * @param {string} investorId UserID Of the investor
+ * @param {string} channelId UserID of the channel being invested in
+ * @param {number} minPrice Minimum price for sell (of total shares)
+ * @param {number} shareCount Amount of shares being bought
+ */
+// eslint-disable-next-line max-len
+module.exports.postBuy = (investorId, channelId, minPrice, shareCount) => new Promise((resolve, reject) => {
+	const user = buysRef.doc(channelId);
+	user.get().then((doc) => {
+		if (doc.exists) {
+			const newBuyRequest = {
+				seller: investorId,
+				minPrice,
+				shareCount
+			};
+			const {
+				requests
+			} = doc.data();
+			user.set({
+				requests: [...requests, newBuyRequest]
+			});
+		}
+		else {
+			const newBuyRequest = {
+				seller: investorId,
+				minPrice,
+				shareCount
+			};
+			const requests = [];
+			requests.push(newBuyRequest);
+			user.set({
+				requests
+			});
 		}
 	}).catch((error) => {
 		reject(error);
