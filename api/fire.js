@@ -28,6 +28,29 @@ module.exports.createPost = (content, owner, title) => {
 const authRef = db.collection('auth');
 const usersRef = db.collection('users');
 const postsRef = db.collection('posts');
+const sellsRef = db.collection('sells');
+const buysRef = db.collection('buys');
+
+/**
+ * Submit a new sell request
+ * @param {string} investorId UserID Of the investor
+ * @param {string} channelId UserID of the channel being invested in
+ * @param {number} minPrice Minimum price for sell (of total shares)
+ * @param {number} shareCount Amount of shares being sold
+ */
+// eslint-disable-next-line max-len
+module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new Promise((resolve, reject) => {
+	const channel = sellsRef.doc(channelId);
+	channel.get('requests').then((data) => {
+		const newSellRequest = { seller: investorId, minPrice, shareCount };
+		channel.update({
+			requests: [...data.requests, newSellRequest]
+		});
+	}).catch((err) => {
+		reject(err);
+	});
+});
+
 
 /**
  * Promise with user data (see users database to see user structure)
@@ -37,6 +60,24 @@ module.exports.getUser = id => new Promise((resolve, reject) => {
 	const user = usersRef.doc(id);
 	user.get().then((doc) => {
 		if (doc.exists) {
+			resolve(doc.data());
+		}
+		else {
+			resolve(null);
+		}
+	}).catch((error) => {
+		reject(error);
+	});
+});
+
+/**
+ * Get all users with the name
+ * @param {string} name The user's name to search for
+ */
+module.exports.getUserList = name => new Promise((resolve, reject) => {
+	usersRef.where('name', '==', name).then((doc) => {
+		if (doc.exists) {
+			console.log(doc.data());
 			resolve(doc.data());
 		}
 		else {
