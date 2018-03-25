@@ -71,24 +71,24 @@ $(document).ready(() => {
 		const channel = $('#sellInChan').val();
 		const amt = $('#sellInNum').val();
 		const price = $('#sellInPrice').val();
-		const user = firebase.auth().currentUser;		
+		const user = firebase.auth().currentUser;
 		$.post('/api/sell/', {
 			investorId: user.uid,
-			channelId: channel
-			minPrice: price
+			channelId: channel,
+			minPrice: price,
 			shareCount: amt
 		});
 	});
-	
+
 	$('#buyForm').submit(() => {
 		const channel = $('#buyInChan').val();
 		const amt = $('#buyInNum').val();
 		const price = $('#buyInPrice').val();
-		const user = firebase.auth().currentUser;		
+		const user = firebase.auth().currentUser;
 		$.post('/api/sell/', {
 			investorId: user.uid,
-			channelId: channel
-			askPrice: price
+			channelId: channel,
+			askPrice: price,
 			shareCount: amt
 		});
 	});
