@@ -50,13 +50,12 @@ const buysRef = db.collection('buys');
 module.exports.deposit = (investorId, tokens) => new Promise((resolve, reject) => {
 	const user = usersRef.doc(investorId);
 	user.get().then((doc) => {
-		if (doc.exists()) {
+		if (doc.exists) {
 			const currTokens = doc.data().tokens;
 			const newTokens = tokens + currTokens;
-			console.log(doc);
-			doc.set({
+			user.set({
 				tokens: newTokens
-			}).then(resolve)
+			}, { merge: true }).then(resolve)
 				.catch((err) => {
 					reject(err);
 				});
@@ -137,7 +136,7 @@ module.exports.createUser = (uid, name, username) => new Promise((resolve, rejec
 				posts: [],
 				investments: [],
 				created: Date.now(),
-				token: 10
+				tokens: 0
 			}).then(() => {
 				// Add the user to /auth/
 				authRef.doc(uid).set({

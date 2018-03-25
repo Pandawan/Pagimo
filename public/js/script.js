@@ -52,7 +52,7 @@ $(document).ready(() => {
 	$('#depositForm').submit(() => {
 		const amt = $('#depositIn').val();
 		const user = firebase.auth().currentUser;
-		$.post('/api/create_user/', {
+		$.post('/api/deposit/', {
 			uid: user.uid,
 			tokens: amt
 		});
