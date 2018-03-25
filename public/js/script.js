@@ -49,23 +49,23 @@ $(document).ready(() => {
 		});
 	}
 
-	$('#depositForm').submit(()=> {
-		const amt = $("#depositIn").val();
+	$('#depositForm').submit(() => {
+		const amt = $('#depositIn').val();
 		// send amt to firebase to be added to investor.tokens
 	});
 
-	$('#withdrawForm').submit(()=> {
-		const amt = $("#withdrawIn").val();
+	$('#withdrawForm').submit(() => {
+		const amt = $('#withdrawIn').val();
 		// send amt to firebase to be subtracted from investor.tokens
 	});
 
-	$('#buyForm').submit(()=> {
-		const amt = $("#buyIn").val();
+	$('#buyForm').submit(() => {
+		const amt = $('#buyIn').val();
 		// send amt to firebase to be added to investor.portfolio
 	});
 
-	$('#sellForm').submit(()=> {
-		const amt = $("#sellIn").val();
+	$('#sellForm').submit(() => {
+		const amt = $('#sellIn').val();
 		// send amt to firebase to be added to investor.tokens
 	});
 
