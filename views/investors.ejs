@@ -14,22 +14,22 @@
 			<hr>
 			<div class="row">
 			<div class="col-md-3">
-			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+			  <form class="mx-20 my-auto d-inline w-20" id="depositForm" _lpchecked="1">
           	  	<div class="input-group">
-              	  <input type="text" class="form-control" placeholder="USD">
+              	  <input type="text" class="form-control" id="depositIn" placeholder="USD">
                 	  <span class="input-group-append">
-              	    <button class="btn btn-primary btn-lg" type="button">Deposit</button>
+              	    <button class="btn btn-primary btn-lg" type="submit">Deposit</button>
                	  </span>
            	  	</div>
        		  </form>
        		</div>
        		<div class="col-md-3"></div>
        		<div class="col-md-3">
-			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+			  <form class="mx-20 my-auto d-inline w-20" id="withdrawForm" _lpchecked="1">
           	  	<div class="input-group">
-              	  <input type="text" class="form-control" placeholder="Tokens">
+              	  <input type="text" class="form-control" id="withdrawIn" placeholder="Tokens">
                 	  <span class="input-group-append">
-              	    <button class="btn btn-primary btn-lg" type="button">Withdraw</button>
+              	    <button class="btn btn-primary btn-lg" type="submit">Withdraw</button>
                	  </span>
            	  	</div>
        		  </form>
@@ -44,22 +44,22 @@
 			<hr>
 			<div class="row">
 			<div class="col-md-4">
-			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+			  <form class="mx-20 my-auto d-inline w-20" id="buyForm" _lpchecked="1">
           	  	<div class="input-group">
-              	  <input type="text" class="form-control" placeholder="Channel">
+              	  <input type="text" class="form-control" id="buyIn" placeholder="Channel">
                 	  <span class="input-group-append">
-              	    <button class="btn btn-primary btn-lg" type="button">Buy</button>
+              	    <button class="btn btn-primary btn-lg" type="submit">Buy</button>
                	  </span>
            	  	</div>
        		  </form>
        		</div>
        		<div class="col-md-2"></div>
        		<div class="col-md-4">
-			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+			  <form class="mx-20 my-auto d-inline w-20" id="sellForm" _lpchecked="1">
           	  	<div class="input-group">
-              	  <input type="text" class="form-control" placeholder="Channel">
+              	  <input type="text" class="form-control" id="sellIn" placeholder="Channel">
                 	  <span class="input-group-append">
-              	    <button class="btn btn-primary btn-lg" type="button">Sell</button>
+              	    <button class="btn btn-primary btn-lg" type="submit">Sell</button>
                	  </span>
            	  	</div>
        		  </form>
@@ -99,7 +99,7 @@
 					</div>
 				</div>
 			</ul>
-		</div>		
+		</div>	
     </main>
 	<%- include ./partials/footer %>
 </body>
