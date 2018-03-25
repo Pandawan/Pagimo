@@ -123,6 +123,13 @@ $(document).ready(() => {
 			if (window.location.pathname === '/posts/new-post') {
 				document.getElementById('id').value = user.uid;
 			}
+			else if (window.location.pathname === '/investors') {
+				$.post('/api/token/', {
+					uid: user.uid
+				}, (data) => {
+					$('#tokenCount').text(data.tokens);
+				});
+			}
 			else {
 				$.post('/api/create_user/', {
 					uid: user.uid,

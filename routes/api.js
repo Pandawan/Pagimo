@@ -39,6 +39,20 @@ router.post('/deposit/', (req, res) => {
 	});
 });
 
+
+router.post('/token/', (req, res, next) => {
+	const { uid } = req.body;
+	fire.getUserId(uid).then((id) => {
+		fire.getUser(id).then((user) => {
+			res.send(user);
+		}).catch((err) => {
+			next(err);
+		});
+	}).catch((err) => {
+		next(err);
+	});
+});
+
 router.post('/sell/', (req, res) => {
 	const {
 		investorId,
