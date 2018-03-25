@@ -5,5 +5,3 @@ fire.getUserList('uuid').then((data) => {
 }).catch((err) => {
 	console.log(err);
 });
-
-postSell(params).then((data) => { console.log(data);}).catch((err) => { console.log(err)});

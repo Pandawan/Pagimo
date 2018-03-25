@@ -77,7 +77,8 @@ $(document).ready(() => {
 			console.log(`Signed in with user ${JSON.stringify(user.displayName)}`);
 			if (window.location.pathname === '/posts/new-post') {
 				document.getElementById('id').value = user.uid;
-			} else {
+			}
+			else {
 				$.post('/api/create_user/', { uid: user.uid, name: user.displayName }, (data) => {
 					$('#modal').removeClass('hidden');
 					$('#modal-title').text('HEY');
