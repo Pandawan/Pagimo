@@ -59,7 +59,9 @@ $(document).ready(() => {
 
 	$('#profile-btn').click(() => {
 		const user = firebase.auth().currentUser;
-		window.location.href = `/userid/${user.uid}`;
+		if (user) {
+			window.location.href = `/userid/${user.uid}`;
+		}
 	});
 
 	firebase.auth().onAuthStateChanged((user) => {
