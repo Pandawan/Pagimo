@@ -1,7 +1,7 @@
 class Investor(): # client side functions
 	name = ""
 	tokens = 0
-	portfolio = dict()
+	portfolio = [[channel, price, num],[]]
 
 	def deposit(str name, int usd): # to add tokens
 		this.name = name
