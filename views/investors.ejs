@@ -6,8 +6,33 @@
     <main role="main">
 		<h1>Investment Dashboard</h1>
 		<div class="jumbotron" style="padding:30px">
-			<h3>Tokens</h3><hr>
-			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+			<div class="row">
+				<h3>Tokens: </h3>
+				<h3 id="tokenCount" style="padding-left: 10px">100</h3>
+			</div>
+			<hr>
+			<div class="row">
+			<div class="col-md-3">
+			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+          	  	<div class="input-group">
+              	  <input type="text" class="form-control" placeholder="USD">
+                	  <span class="input-group-append">
+              	    <button class="btn btn-primary btn-lg" type="button">Deposit</button>
+               	  </span>
+           	  	</div>
+       		  </form>
+       		</div>
+       		<div class="col-md-7" style="padding-left: 320px">
+			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+          	  	<div class="input-group">
+              	  <input type="text" class="form-control" placeholder="Tokens">
+                	  <span class="input-group-append">
+              	    <button class="btn btn-primary btn-lg" type="button">Withdraw</button>
+               	  </span>
+           	  	</div>
+       		  </form>
+       		</div>
+			</div>
 		</div>
 		<div class="jumbotron" style="padding:30px">
 			<h3>Investing</h3><hr>
