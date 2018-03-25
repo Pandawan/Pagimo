@@ -113,13 +113,21 @@ module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new P
 			const {
 				requests
 			} = doc.data();
-			console.log(doc);
-			doc.set({
+			user.set({
 				requests: [...requests, newSellRequest]
 			});
 		}
 		else {
-			resolve(null);
+			const newSellRequest = {
+				seller: investorId,
+				minPrice,
+				shareCount
+			};
+			const requests = [];
+			requests.push(newSellRequest);
+			user.set({
+				requests
+			});
 		}
 	}).catch((error) => {
 		reject(error);
