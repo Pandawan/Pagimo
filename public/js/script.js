@@ -67,16 +67,30 @@ $(document).ready(() => {
 		});
 	});
 
-	$('#buyForm').submit(() => {
-		const channel = $('#buyInChan').val();
-		const amt = $('#buyInNum').val();
-		// send amt to firebase to be added to investor.portfolio
-	});
-
 	$('#sellForm').submit(() => {
 		const channel = $('#sellInChan').val();
 		const amt = $('#sellInNum').val();
-		// send amt to firebase to be removed from investor.portfolio
+		const price = $('#sellInPrice').val();
+		const user = firebase.auth().currentUser;		
+		$.post('/api/sell/', {
+			investorId: user.uid,
+			channelId: channel
+			minPrice: price
+			shareCount: amt
+		});
+	});
+	
+	$('#buyForm').submit(() => {
+		const channel = $('#buyInChan').val();
+		const amt = $('#buyInNum').val();
+		const price = $('#buyInPrice').val();
+		const user = firebase.auth().currentUser;		
+		$.post('/api/sell/', {
+			investorId: user.uid,
+			channelId: channel
+			askPrice: price
+			shareCount: amt
+		});
 	});
 
 	$('#sign-in-btn').click(() => {
