@@ -9,3 +9,7 @@ main {
 .hidden {
 	display: none !important; 
 }
+
+.search-bar {
+  margin-right: 1em;
+}
