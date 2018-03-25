@@ -14,3 +14,5 @@ fire.createUser('uuid', 'Miguel').then(() => {
 }).catch((err) => {
 	console.log(err);
 });
+
+postSell(''asdasdas).then((data) => { console.log(data);}).catch((err) => { console.log(err)});

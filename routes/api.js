@@ -9,7 +9,17 @@ router.post('/create_user/', (req, res) => {
 	fire.createUser(uid, name, username).then(() => {
 		res.send('Success!');
 	}).catch((err) => {
-		res.send(`Something went wrong... ${err}`);
+		res.send('Something went wrong... ${err}');
+	});
+});
+
+// Create users
+router.post('/sell/', (req, res) => {
+	const { investorId, channelId, minPrice, shareCount } = req.body;
+	fire.postSell(investorId, channelId, minPrice, shareCount).then(() => {
+		res.send('Success!');
+	}).catch((err) => {
+		res.send('Something went wrong... ${err}');
 	});
 });
 

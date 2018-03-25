@@ -46,11 +46,11 @@ module.exports.postSell = (investorId, channelId, minPrice, shareCount) => new P
 		channel.update({
 			requests: [...data.requests, newSellRequest]
 		});
+		resolve('done');
 	}).catch((err) => {
 		reject(err);
 	});
 });
-
 
 /**
  * Promise with user data (see users database to see user structure)
