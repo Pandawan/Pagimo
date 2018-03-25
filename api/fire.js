@@ -143,6 +143,68 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 	const channel = buysRef.doc(channelId);
 	channel.get().then((doc) => {
 		if (doc.exists) {
+			for (let j = 0; j < doc.data().requests.length; j++) {
+				const i = doc.data().requests[j];
+				console.log("Succesful purchase");
+				if ((askPrice >= i.minPrice) && (shareCount <= i.shareCount)) { // if askPrice > minPrice
+					console.log("Succesful purchase");
+					usersRef.doc(i.seller).get().then((doc) => {
+						portfolio[channel] -= i.minPrice;
+						investorId.portfolio[channel] += i.minPrice;
+						// transfer num amount of shares of channel from seller to buyer
+						investorId.tokens -= askPrice;
+						i.seller.tokens += askPrice;
+						// transfer askPrice amount of tokens from buyer to seller
+						const shareCt = i.shareCount - shareCount;
+						i.set({
+							minPrice,
+							seller,
+							shareCount: shareCt
+						});
+						const user = usersRef.doc(investorId);
+						const newInvestment = {
+							channel,
+							shareCount,
+							price: askPrice,
+						};
+						user.set({
+							created,
+							name: investorId,
+							posts,
+							tokens,
+							uid,
+							investments: [...investments, newInvestment]
+						});
+						alert("Succesful purchase");				
+					});
+					investorId.portfolio[channel] += i.minPrice;
+					// transfer num amount of shares of channel from seller to buyer
+					investorId.tokens -= askPrice;
+					i.seller.tokens += askPrice;
+					// transfer askPrice amount of tokens from buyer to seller
+					const shareCt = i.shareCount - shareCount;
+					i.set({
+						minPrice,
+						seller,
+						shareCount: shareCt
+					});
+					const user = usersRef.doc(investorId);
+					const newInvestment = {
+						channel,
+						shareCount,
+						price: askPrice,
+					};
+					user.set({
+						created,
+						name: investorId,
+						posts,
+						tokens,
+						uid,
+						investments: [...investments, newInvestment]
+					});
+					alert("Succesful purchase");
+				}
+			}
 			const newBuyRequest = {
 				buyer: investorId,
 				askPrice,
@@ -163,37 +225,6 @@ module.exports.postBuy = (investorId, channelId, askPrice, shareCount) => new Pr
 			requests.push(newBuyRequest);
 			channel.set({ requests });
 		}
-		for (let i of channel) {
-			if ((askPrice >= i.minPrice) && (shareCount <= i.shareCount)) { // if askPrice > minPrice
-				i.seller.portfolio[channel] -= i.minPrice;
-				investorId.portfolio[channel] += i.minPrice;
-				// transfer num amount of shares of channel from seller to buyer
-				investorId.tokens -= askPrice;
-				i.seller.tokens += askPrice;
-				// transfer askPrice amount of tokens from buyer to seller
-				const shareCt = i.shareCount - shareCount;
-				i.set({
-					minPrice,
-					seller,
-					shareCount: shareCt
-				});
-				return "Succesful purchase";
-			} 
-		}
-		const user = usersRef.doc(investorId);
-		const newInvestment = {
-			channel,
-			shareCount,
-			price: askPrice,
-		};
-		user.set({
-			created,
-			name: investorId,
-			posts,
-			tokens,
-			uid,
-			investments: [...investments, newInvestment]
-		});
 	}).catch((error) => {
 		reject(error);
 	});
