@@ -71,29 +71,6 @@ module.exports.getUser = id => new Promise((resolve, reject) => {
 });
 
 /**
- * Get all users with the name
- * @param {string} name The user's name to search for
- */
-module.exports.getUserList = name => new Promise((resolve, reject) => {
-	console.log(`'${name}'`);
-	usersRef.doc('miguel').get('name').then((data) => {
-		console.log(`'${JSON.stringify(data.data())}'`);
-	});
-	usersRef.where('name', '==', name).get().then((doc) => {
-		if (doc.exists) {
-			console.log(doc.data());
-			resolve(doc.data());
-		}
-		else {
-			resolve(null);
-		}
-	}).catch((error) => {
-		reject(error);
-	});
-});
-
-
-/**
  * Create a user in the Firebase DB
  * @param {string} uid User UID (from Google Sign In or other)
  * @param {string} name User's Name (from Google Sign In or other)
