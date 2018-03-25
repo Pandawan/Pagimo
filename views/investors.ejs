@@ -5,9 +5,10 @@
     <%- include ./partials/navbar %>
     <main role="main">
 		<h1>Investment Dashboard</h1>
+
 		<div class="jumbotron" style="padding:30px">
 			<div class="row">
-				<h3>Tokens: </h3>
+				<h3 style="padding-left: 15px">Tokens: </h3>
 				<h3 id="tokenCount" style="padding-left: 10px">100</h3>
 			</div>
 			<hr>
@@ -22,7 +23,8 @@
            	  	</div>
        		  </form>
        		</div>
-       		<div class="col-md-7" style="padding-left: 320px">
+       		<div class="col-md-3"></div>
+       		<div class="col-md-3">
 			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
           	  	<div class="input-group">
               	  <input type="text" class="form-control" placeholder="Tokens">
@@ -34,9 +36,37 @@
        		</div>
 			</div>
 		</div>
+
 		<div class="jumbotron" style="padding:30px">
-			<h3>Investing</h3><hr>
+			<div class="row">
+				<h3 style="padding-left: 15px">Investments</h3>
+			</div>
+			<hr>
+			<div class="row">
+			<div class="col-md-4">
+			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+          	  	<div class="input-group">
+              	  <input type="text" class="form-control" placeholder="Channel">
+                	  <span class="input-group-append">
+              	    <button class="btn btn-primary btn-lg" type="button">Buy</button>
+               	  </span>
+           	  	</div>
+       		  </form>
+       		</div>
+       		<div class="col-md-2"></div>
+       		<div class="col-md-4">
+			  <form class="mx-20 my-auto d-inline w-20" _lpchecked="1">
+          	  	<div class="input-group">
+              	  <input type="text" class="form-control" placeholder="Channel">
+                	  <span class="input-group-append">
+              	    <button class="btn btn-primary btn-lg" type="button">Sell</button>
+               	  </span>
+           	  	</div>
+       		  </form>
+       		</div>
+			</div>
 		</div>
+		
 		<div class="jumbotron" style="padding:30px">
 			<h3>Portfolio</h3><hr>
 		</div>		
