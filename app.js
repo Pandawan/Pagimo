@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
+const api = require('./routes/api');
 const user = require('./routes/user');
+const userid = require('./routes/userid');
 const about = require('./routes/about');
 const creators = require('./routes/creators');
 const investors = require('./routes/investors');
@@ -28,7 +30,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/api', api);
 app.use('/user', user);
+app.use('/userid', userid);
 app.use('/investors', investors);
 app.use('/creators', creators);
 app.use('/about', about);
